@@ -10,7 +10,7 @@ import EmployeeAnalysis from "./components/EmployeeAnalysis";
 import LoanHistory from "./components/LoanHistory";
 import CreateAdmin from "./components/CreateAdmin";
 import AdministrationForManagers from "./components/AdministrationForManagers";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaUser, FaLock } from "react-icons/fa"; // React Icons
 
 function AdminDashboard() {
   const [activeComponent, setActiveComponent] = useState("dashboard");
@@ -92,31 +92,51 @@ function AdminDashboard() {
       >
         {renderComponent()}
       </motion.main>
+
+      {/* Admin Login Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded shadow-lg">
-            <h2 className="text-xl font-bold mb-4">Admin Login</h2>
-            <input
-              type="text"
-              placeholder="Username"
-              className="w-full mb-3 p-2 border rounded"
-              id="username"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full mb-3 p-2 border rounded"
-              id="password"
-            />
-            <div className="flex justify-end">
+          <div className="bg-purple-600 p-8 rounded-xl shadow-lg w-96">
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center">
+              Admin Login <FaUser className="ml-2" />
+            </h2>
+            <div className="mb-4">
+              <label htmlFor="username" className="text-white text-lg">
+                Username
+              </label>
+              <div className="flex items-center border-b border-white mt-2">
+                <FaUser className="text-white mr-3" />
+                <input
+                  type="text"
+                  id="username"
+                  placeholder="Enter username"
+                  className="w-full py-2 px-3 bg-transparent text-white placeholder-gray-400 focus:outline-none"
+                />
+              </div>
+            </div>
+            <div className="mb-6">
+              <label htmlFor="password" className="text-white text-lg">
+                Password
+              </label>
+              <div className="flex items-center border-b border-white mt-2">
+                <FaLock className="text-white mr-3" />
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Enter password"
+                  className="w-full py-2 px-3 bg-transparent text-white placeholder-gray-400 focus:outline-none"
+                />
+              </div>
+            </div>
+            <div className="flex justify-between items-center">
               <button
-                className="mr-2 px-4 py-2 bg-gray-200 rounded"
+                className="text-white px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
                 onClick={() => setShowModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="px-4 py-2 bg-blue-500 text-white rounded"
+                className="text-white px-4 py-2 bg-blue-500 rounded-md hover:bg-blue-600"
                 onClick={() =>
                   handleAdminLogin(
                     document.getElementById("username").value,
