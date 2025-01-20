@@ -1,5 +1,6 @@
 import React from 'react'
-import AdminDashboard from './admindashboard'
+import AdminDashboard from "./Admindashboard"
+
 
 function App() {
   return (
