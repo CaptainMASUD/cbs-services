@@ -20,41 +20,43 @@ function AllForms() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <table className="min-w-full">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="py-3 px-4 text-left">ID</th>
-              <th className="py-3 px-4 text-left">Form Name</th>
-              <th className="py-3 px-4 text-left">Submitted By</th>
-              <th className="py-3 px-4 text-left">Date</th>
-              <th className="py-3 px-4 text-left">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {forms.map((form) => (
-              <motion.tr
-                key={form.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="border-b border-gray-200 hover:bg-gray-50"
-              >
-                <td className="py-3 px-4">{form.id}</td>
-                <td className="py-3 px-4">{form.name}</td>
-                <td className="py-3 px-4">{form.submittedBy}</td>
-                <td className="py-3 px-4">{form.date}</td>
-                <td className="py-3 px-4">
-                  <button className="text-blue-500 hover:text-blue-700 mr-2">
-                    <FaEdit />
-                  </button>
-                  <button className="text-red-500 hover:text-red-700">
-                    <FaTrash />
-                  </button>
-                </td>
-              </motion.tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="min-w-full">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="py-3 px-4 text-left">ID</th>
+                <th className="py-3 px-4 text-left">Form Name</th>
+                <th className="py-3 px-4 text-left">Submitted By</th>
+                <th className="py-3 px-4 text-left">Date</th>
+                <th className="py-3 px-4 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {forms.map((form) => (
+                <motion.tr
+                  key={form.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="border-b border-gray-200 hover:bg-gray-50"
+                >
+                  <td className="py-3 px-4">{form.id}</td>
+                  <td className="py-3 px-4">{form.name}</td>
+                  <td className="py-3 px-4">{form.submittedBy}</td>
+                  <td className="py-3 px-4">{form.date}</td>
+                  <td className="py-3 px-4">
+                    <button className="text-blue-500 hover:text-blue-700 mr-2">
+                      <FaEdit />
+                    </button>
+                    <button className="text-red-500 hover:text-red-700">
+                      <FaTrash />
+                    </button>
+                  </td>
+                </motion.tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </motion.div>
     </div>
   )
