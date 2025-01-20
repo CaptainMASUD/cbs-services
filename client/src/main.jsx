@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       { path: '', element: <Home /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'form', element: < LoanVerificationForm/> },
-      { path: 'dashboard', element: <AdminDashboard /> },
+      { path: 'admin', element: <AdminDashboard /> },
 
     ],
   },
