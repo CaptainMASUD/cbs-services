@@ -10,6 +10,7 @@ import Layout from './components/Layout/Layout';
 import LoginPage from './components/Login/Login';
 import AdminDashboard from './Admindashboard';
 import LoanVerificationForm from './Formdesgin';
+import SuccessMessage from './components/SuccessMessage';
 
 
 
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: 'login', element: <LoginPage /> },
       { path: 'form', element: < LoanVerificationForm/> },
       { path: 'admin', element: <AdminDashboard /> },
+      { path: 'successsmsg', element: <SuccessMessage /> },
 
     ],
   },
