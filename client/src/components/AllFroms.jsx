@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaPencilAlt, FaTrashAlt, FaSearch, FaFilter } from "react-icons/fa";
+import { FaSearch, FaFilter, FaTrashAlt } from "react-icons/fa";
+import { IoFolderOpen, IoClose } from "react-icons/io5";
+import SignatureCanvas from "react-signature-canvas";
 
 const initialForms = [
   { id: 1, name: "Loan Application", submittedBy: "John Doe", date: "2023-06-01" },
@@ -10,15 +12,19 @@ const initialForms = [
   { id: 5, name: "Employment Verification", submittedBy: "Charlie Davis", date: "2023-06-05" },
 ];
 
+const bankTypes = ["Bank of America", "Chase", "Wells Fargo", "CitiBank", "PNC Bank"];
+const loanTypes = ["Car Loan", "Home Loan", "Personal Loan", "Education Loan"];
+
 function AllForms() {
   const [forms, setForms] = useState(initialForms);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
+  const [expandedForm, setExpandedForm] = useState(null);
+  const [deleteDisabled, setDeleteDisabled] = useState(false);
+  const [adminMessage, setAdminMessage] = useState("");
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  const handleSearch = (e) => setSearchTerm(e.target.value);
 
   const handleSort = (key) => {
     if (sortBy === key) {
@@ -27,6 +33,20 @@ function AllForms() {
       setSortBy(key);
       setSortOrder("asc");
     }
+  };
+
+  const toggleFormDetails = (formId) => {
+    setExpandedForm(expandedForm === formId ? null : formId);
+  };
+
+  const handleDeleteClick = () => {
+    setAdminMessage("You need admin permission to delete this form.");
+    setDeleteDisabled(true);
+  };
+
+  const handleCancel = () => {
+    setAdminMessage("");
+    setDeleteDisabled(false);
   };
 
   const filteredAndSortedForms = forms
@@ -69,6 +89,17 @@ function AllForms() {
             </select>
           </div>
         </div>
+        {adminMessage && (
+          <div className="mb-4 p-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700">
+            {adminMessage}
+            <button
+              onClick={handleCancel}
+              className="ml-4 bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
         <motion.div
           className="bg-white rounded-lg shadow-md overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
@@ -89,27 +120,103 @@ function AllForms() {
               <tbody>
                 <AnimatePresence>
                   {filteredAndSortedForms.map((form) => (
-                    <motion.tr
-                      key={form.id}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="border-b border-gray-200 hover:bg-gray-50"
-                    >
-                      <td className="py-4 px-4 text-sm text-gray-900">{form.id}</td>
-                      <td className="py-4 px-4 text-sm text-gray-900">{form.name}</td>
-                      <td className="py-4 px-4 text-sm text-gray-900">{form.submittedBy}</td>
-                      <td className="py-4 px-4 text-sm text-gray-900">{form.date}</td>
-                      <td className="py-4 px-4 text-sm">
-                        <button className="text-blue-600 hover:text-blue-900 mr-2 transition duration-150 ease-in-out">
-                          <FaPencilAlt />
-                        </button>
-                        <button className="text-red-600 hover:text-red-900 transition duration-150 ease-in-out">
-                          <FaTrashAlt />
-                        </button>
-                      </td>
-                    </motion.tr>
+                    <React.Fragment key={form.id}>
+                      <motion.tr
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="border-b border-gray-200 hover:bg-gray-50"
+                      >
+                        <td className="py-4 px-4 text-sm text-gray-900">{form.id}</td>
+                        <td className="py-4 px-4 text-sm text-gray-900">{form.name}</td>
+                        <td className="py-4 px-4 text-sm text-gray-900">{form.submittedBy}</td>
+                        <td className="py-4 px-4 text-sm text-gray-900">{form.date}</td>
+                        <td className="py-4 px-4 text-sm flex items-center space-x-2">
+                          <button
+                            onClick={() => toggleFormDetails(form.id)}
+                            className="text-black hover:text-gray-600 transition duration-150 ease-in-out"
+                          >
+                            {expandedForm === form.id ? <IoClose size={20} /> : <IoFolderOpen size={20} />}
+                          </button>
+                          <button
+                            onClick={handleDeleteClick}
+                            disabled={deleteDisabled}
+                            className={`${
+                              deleteDisabled ? "text-gray-400 cursor-not-allowed" : "text-red-600 hover:text-red-900"
+                            } transition duration-150 ease-in-out`}
+                          >
+                            <FaTrashAlt />
+                          </button>
+                        </td>
+                      </motion.tr>
+                      {expandedForm === form.id && (
+                        <motion.tr
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <td colSpan="5" className="bg-gray-100 py-4 px-4">
+                            <table className="w-full">
+                              <tbody>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Bank Type:</td>
+                                  <td>{bankTypes[Math.floor(Math.random() * bankTypes.length)]}</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Loan Type:</td>
+                                  <td>{loanTypes[Math.floor(Math.random() * loanTypes.length)]}</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">File Number:</td>
+                                  <td>FN-{form.id}-2023</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Client Name:</td>
+                                  <td>{form.submittedBy}</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Visit Date:</td>
+                                  <td>2023-06-15</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Visit Time:</td>
+                                  <td>10:30 AM</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Remarks:</td>
+                                  <td>All documents verified.</td>
+                                </tr>
+                                <tr>
+                                  <td className="py-2 px-4 font-medium">Signatures:</td>
+                                  <td>
+                                    <div className="flex flex-wrap gap-4">
+                                      {["blue", "green", "red"].map((color, index) => (
+                                        <div
+                                          key={index}
+                                          className="border p-2"
+                                          style={{ width: "220px", height: "120px" }}
+                                        >
+                                          <SignatureCanvas
+                                            penColor={color}
+                                            canvasProps={{
+                                              width: 200,
+                                              height: 100,
+                                              className: "sigCanvas",
+                                            }}
+                                          />
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </motion.tr>
+                      )}
+                    </React.Fragment>
                   ))}
                 </AnimatePresence>
               </tbody>

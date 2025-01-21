@@ -1,3 +1,4 @@
+// Sidebar Component
 import React from "react";
 import { motion } from "framer-motion";
 import {
@@ -7,7 +8,6 @@ import {
   FaChartLine,
   FaUserTie,
   FaHistory,
-  FaUserShield,
 } from "react-icons/fa";
 
 const menuItems = [
@@ -18,11 +18,9 @@ const menuItems = [
   { id: "loanStatistics", icon: FaChartLine, label: "Loan Statistics" },
   { id: "employeeAnalysis", icon: FaUserTie, label: "Employee Analysis" },
   { id: "loanHistory", icon: FaHistory, label: "Loan History" },
-  { id: "createAdmin", icon: FaUserShield, label: "Create Admin" }, // Added
-  { id: "administrationForManagers", icon: FaUserShield, label: "Administration" }, // Added
 ];
 
-function Sidebar({ setActiveComponent, closeSidebar, logout }) {
+function Sidebar({ setActiveComponent, closeSidebar, isManager, logout }) {
   const handleItemClick = (id) => {
     setActiveComponent(id);
     closeSidebar();
@@ -36,7 +34,9 @@ function Sidebar({ setActiveComponent, closeSidebar, logout }) {
       transition={{ duration: 0.5 }}
     >
       <div>
-        <h1 className="text-2xl font-bold mb-8">Admin Panel</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-2xl font-bold">Manager Panel</h1>
+        </div>
         <nav>
           <ul>
             {menuItems.map((item) => (
@@ -53,12 +53,14 @@ function Sidebar({ setActiveComponent, closeSidebar, logout }) {
           </ul>
         </nav>
       </div>
-      <button
-        onClick={logout}
-        className="w-full py-2 px-4 mt-4 bg-red-600 rounded hover:bg-red-700 transition text-center"
-      >
-        Logout
-      </button>
+      {isManager && (
+        <button
+          onClick={logout}
+          className="w-full py-2 px-4 mt-4 bg-red-600 rounded hover:bg-red-700 transition text-center"
+        >
+          Logout
+        </button>
+      )}
     </motion.aside>
   );
 }

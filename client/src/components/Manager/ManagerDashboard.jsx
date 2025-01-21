@@ -1,22 +1,24 @@
+// ManagerDashboard Component
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./components/Dashboard";
-import AllForms from "./components/AllFroms";
-import EmployeeForms from "./components/EmployeeFroms";
-import Clients from "./components/Clients";
-import LoanStatistics from "./components/LoanStatistics";
-import EmployeeAnalysis from "./components/EmployeeAnalysis";
-import LoanHistory from "./components/LoanHistory";
-import CreateAdmin from "./components/CreateAdmin";
-import AdministrationForManagers from "./components/AdministrationForManagers";
-import { BsFillArrowRightCircleFill } from "react-icons/bs"; // Updated icon
+import Sidebar from "./ManagerSidebar";
+import Dashboard from "../Dashboard";
+import AllForms from "../AllFroms";
+import EmployeeForms from "../EmployeeFroms";
+import Clients from "../Clients";
+import LoanStatistics from "../LoanStatistics";
+import EmployeeAnalysis from "../EmployeeAnalysis";
+import LoanHistory from "../LoanHistory";
+import { FaBars } from "react-icons/fa"; // React Icons
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
-function AdminDashboard() {
+function ManagerDashboard() {
   const [activeComponent, setActiveComponent] = useState("dashboard");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isManager, setIsManager] = useState(true);
 
   const handleLogout = () => {
+    setIsManager(false);
     setActiveComponent("dashboard");
   };
 
@@ -36,10 +38,6 @@ function AdminDashboard() {
         return <EmployeeAnalysis />;
       case "loanHistory":
         return <LoanHistory />;
-      case "createAdmin":
-        return <CreateAdmin />;
-      case "administrationForManagers":
-        return <AdministrationForManagers />;
       default:
         return <Dashboard />;
     }
@@ -47,7 +45,6 @@ function AdminDashboard() {
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Mobile Sidebar Toggle Button */}
       <div className="md:hidden fixed top-4 left-4 z-50">
         <button
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -56,16 +53,10 @@ function AdminDashboard() {
           <BsFillArrowRightCircleFill size={24} />
         </button>
       </div>
-
-      {/* Sidebar Overlay for Mobile */}
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden ${
-          isSidebarOpen ? "block" : "hidden"
-        }`}
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden ${isSidebarOpen ? "block" : "hidden"}`}
         onClick={() => setIsSidebarOpen(false)}
       ></div>
-
-      {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -74,11 +65,10 @@ function AdminDashboard() {
         <Sidebar
           setActiveComponent={setActiveComponent}
           closeSidebar={() => setIsSidebarOpen(false)}
+          isManager={isManager}
           logout={handleLogout}
         />
       </div>
-
-      {/* Main Content */}
       <motion.main
         className="flex-1 p-6 overflow-auto"
         initial={{ opacity: 0, x: 20 }}
@@ -91,4 +81,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default ManagerDashboard;

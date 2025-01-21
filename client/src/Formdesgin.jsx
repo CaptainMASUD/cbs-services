@@ -70,14 +70,14 @@ const LoanVerificationForm = () => {
   }
 
   return (
-    <div className="p-6 bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen">
+    <div className="p-6 bg-gradient-to-b from-green-50 to-green-100 min-h-screen">
       <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
         {formSubmitted ? (
           <SuccessMessage onAddMore={handleAddMore} />
         ) : (
           <>
             <div className="text-center mb-6">
-              <h1 className="text-2xl font-bold text-purple-700 uppercase mb-2">CBS Services</h1>
+              <h1 className="text-2xl font-bold text-green-700 uppercase mb-2">CBS Services</h1>
               <p className="text-gray-600 font-medium">Sign and Photo Verification Form</p>
             </div>
 
@@ -87,17 +87,17 @@ const LoanVerificationForm = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <div className="bg-purple-50 p-6 rounded-lg shadow-inner">
+                <div className="bg-green-50 p-6 rounded-lg shadow-inner">
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      <FaFileAlt className="inline mr-2 text-purple-600" />
+                      <FaFileAlt className="inline mr-2 text-green-600" />
                       Bank Type
                     </label>
                     <select
                       name="bankType"
                       value={formData.bankType}
                       onChange={handleChange}
-                      className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                      className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                     >
                       <option value="">Select Bank</option>
                       <option value="One Bank PLC">One Bank PLC</option>
@@ -109,7 +109,7 @@ const LoanVerificationForm = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        <FaFileAlt className="inline mr-2 text-purple-600" />
+                        <FaFileAlt className="inline mr-2 text-green-600" />
                         File Number
                       </label>
                       <input
@@ -117,12 +117,12 @@ const LoanVerificationForm = () => {
                         name="fileNumber"
                         value={formData.fileNumber}
                         onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        <FaUser className="inline mr-2 text-purple-600" />
+                        <FaUser className="inline mr-2 text-green-600" />
                         Client's Name
                       </label>
                       <input
@@ -130,7 +130,7 @@ const LoanVerificationForm = () => {
                         name="clientName"
                         value={formData.clientName}
                         onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                       />
                     </div>
                   </div>
@@ -138,7 +138,7 @@ const LoanVerificationForm = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        <FaCalendarAlt className="inline mr-2 text-purple-600" />
+                        <FaCalendarAlt className="inline mr-2 text-green-600" />
                         Visit Date
                       </label>
                       <input
@@ -146,12 +146,12 @@ const LoanVerificationForm = () => {
                         name="visitDate"
                         value={formData.visitDate}
                         onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        <FaClock className="inline mr-2 text-purple-600" />
+                        <FaClock className="inline mr-2 text-green-600" />
                         Visit Time
                       </label>
                       <input
@@ -159,7 +159,7 @@ const LoanVerificationForm = () => {
                         name="visitTime"
                         value={formData.visitTime}
                         onChange={handleChange}
-                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                        className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                       />
                     </div>
                   </div>
@@ -167,7 +167,7 @@ const LoanVerificationForm = () => {
                   {["Applicant", "1st Guarantor", "2nd Guarantor"].map((role, index) => (
                     <div className="mb-4" key={index} ref={canvasContainerRef}>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                        <FaSignature className="inline mr-2 text-purple-600" />
+                        <FaSignature className="inline mr-2 text-green-600" />
                         Signature of {role}
                       </label>
                       <div className="border border-gray-300 p-2 rounded bg-white">
@@ -208,7 +208,7 @@ const LoanVerificationForm = () => {
 
                   <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      <FaComments className="inline mr-2 text-purple-600" />
+                      <FaComments className="inline mr-2 text-green-600" />
                       Remarks
                     </label>
                     <textarea
@@ -216,7 +216,7 @@ const LoanVerificationForm = () => {
                       value={formData.remarks}
                       onChange={handleChange}
                       rows="3"
-                      className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent transition duration-200"
+                      className="w-full p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                     ></textarea>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ const LoanVerificationForm = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleNext}
-                    className="bg-purple-700 text-white px-6 py-2 rounded-full hover:bg-purple-800 transition duration-300 ease-in-out"
+                    className="bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition duration-300 ease-in-out"
                   >
                     Next
                   </motion.button>
@@ -234,7 +234,7 @@ const LoanVerificationForm = () => {
               </motion.div>
             ) : (
               <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }}>
-                <h2 className="text-xl font-bold text-purple-700 mb-4">Preview</h2>
+                <h2 className="text-xl font-bold text-green-700 mb-4">Preview</h2>
                 <table className="w-full border border-gray-300 text-left">
                   <tbody>
                     <tr>
@@ -306,7 +306,7 @@ const LoanVerificationForm = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleConfirm}
-                    className="bg-purple-700 text-white px-6 py-2 rounded-full hover:bg-purple-800 transition duration-300 ease-in-out"
+                    className="bg-green-700 text-white px-6 py-2 rounded-full hover:bg-green-800 transition duration-300 ease-in-out"
                   >
                     Confirm
                   </motion.button>

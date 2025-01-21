@@ -1,6 +1,7 @@
-import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
-import { FaBars, FaTimes, FaClipboardList, FaUserShield, FaSignInAlt, FaBuilding } from "react-icons/fa"
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { FaBars, FaTimes, FaClipboardList, FaUserShield, FaSignInAlt, FaBuilding } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa6";
 import { SiApacheopenoffice } from "react-icons/si";
 
 const NavItem = ({ icon, text, to }) => (
@@ -8,17 +9,17 @@ const NavItem = ({ icon, text, to }) => (
     to={to}
     className={({ isActive }) =>
       `flex items-center px-3 py-2 text-sm font-medium rounded-md transition duration-150 ease-in-out ${
-        isActive ? "bg-blue-600 text-white" : "text-gray-300 hover:bg-blue-500 hover:text-white"
+        isActive ? "bg-green-600 text-white" : "text-gray-300 hover:bg-green-500 hover:text-white"
       }`
     }
   >
     {icon}
     <span className="ml-2">{text}</span>
   </NavLink>
-)
+);
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-gray-800 shadow-lg">
@@ -26,7 +27,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <NavLink to="/" className="flex-shrink-0 flex items-center">
-              <SiApacheopenoffice className="h-8 w-auto text-blue-400" />
+              <SiApacheopenoffice className="h-8 w-auto text-green-400" />
               <span className="ml-2 text-white text-lg font-bold">CBS Services</span>
             </NavLink>
           </div>
@@ -34,6 +35,7 @@ const Navbar = () => {
             <div className="flex space-x-4">
               <NavItem icon={<FaClipboardList className="w-5 h-5" />} text="Form" to="/form" />
               <NavItem icon={<FaUserShield className="w-5 h-5" />} text="Admin Dashboard" to="/admin" />
+              <NavItem icon={<FaUserTie className="w-5 h-5" />} text="Manager Dashboard" to="/manager" />
               <NavItem icon={<FaSignInAlt className="w-5 h-5" />} text="Login" to="/login" />
             </div>
           </div>
@@ -52,12 +54,12 @@ const Navbar = () => {
         <div className="px-2 pt-2 pb-3 space-y-1">
           <NavItem icon={<FaClipboardList className="w-5 h-5" />} text="Form" to="/form" />
           <NavItem icon={<FaUserShield className="w-5 h-5" />} text="Admin Dashboard" to="/admin" />
+          <NavItem icon={<FaUserTie className="w-5 h-5" />} text="Manager Dashboard" to="/manager" />
           <NavItem icon={<FaSignInAlt className="w-5 h-5" />} text="Login" to="/login" />
         </div>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
-
+export default Navbar;

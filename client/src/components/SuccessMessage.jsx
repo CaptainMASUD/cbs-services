@@ -1,13 +1,13 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { FaFileAlt, FaCircleNotch, FaFileSignature } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { motion } from "framer-motion";
+import { FaFileAlt, FaCheckCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const SuccessMessage = () => {
   const navigate = useNavigate();
 
   const handleAddMore = () => {
-    window.location.reload(); 
+    window.location.reload();
   };
 
   return (
@@ -16,54 +16,54 @@ const SuccessMessage = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
-      className="flex flex-col items-center justify-center h-screen bg-gradient-to-bl from-blue-400 via-purple-500 to-pink-500 text-white p-6"
+      className="flex flex-col items-center justify-center h-screen bg-gradient-to-br rounded-2xl from-green-500 via-green-500 to-red-400 text-white p-8"
     >
+      {/* Success Icon Section */}
       <motion.div
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.8, ease: 'easeInOut' }}
-        className="flex flex-col items-center mb-8"
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        className="flex flex-col items-center text-center mb-10"
       >
-        <div className="relative flex space-x-6 animate-spin-slow">
-          <motion.div
-            className="text-6xl text-blue-100"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1.2 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <FaFileAlt />
-          </motion.div>
-          <motion.div
-            className="text-6xl text-purple-200"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1.2 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <FaCircleNotch />
-          </motion.div>
-          <motion.div
-            className="text-6xl text-pink-200"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1.2 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <FaFileSignature />
-          </motion.div>
-        </div>
-        <h1 className="text-4xl font-bold mt-6">Success!</h1>
-        <p className="text-lg mt-4 text-center max-w-md">
-          Your loan verification form has been successfully submitted and is being processed.
+        <motion.div
+          className="bg-white text-green-500 p-6 rounded-full shadow-lg"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <FaCheckCircle className="text-6xl" />
+        </motion.div>
+        <h1 className="text-5xl font-extrabold mt-6 tracking-wide">Success!</h1>
+        <p className="text-lg mt-4 max-w-lg">
+          Your loan verification form has been successfully submitted and is being processed. We'll notify you once it's complete.
         </p>
       </motion.div>
-      <motion.button
-        whileHover={{ scale: 1.1, backgroundColor: "#fff", color: "#4a00e0" }}
-        whileTap={{ scale: 0.95 }}
-        onClick={handleAddMore}
-        className="bg-purple-700 text-white px-6 py-3 rounded-full shadow-lg hover:bg-purple-800 transition duration-300 flex items-center"
+
+      {/* Action Buttons */}
+      <motion.div
+        className="flex space-x-6"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
       >
-        <FaFileAlt className="mr-2 text-lg" />
-        Add Another Form
-      </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleAddMore}
+          className="bg-white text-green-600 px-6 py-3 rounded-full shadow-lg hover:bg-green-100 transition duration-300 flex items-center"
+        >
+          <FaFileAlt className="mr-2 text-lg" />
+          Add Another Form
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/dashboard")}
+          className="bg-green-700 text-white px-6 py-3 rounded-full shadow-lg hover:bg-green-800 transition duration-300"
+        >
+          Go to Dashboard
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
 };
