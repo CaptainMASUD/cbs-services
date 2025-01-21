@@ -96,7 +96,7 @@ function AdminDashboard() {
       {/* Admin Login Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-purple-600 p-8 rounded-xl shadow-lg w-96">
+          <div className="bg-gray-700 p-8 rounded-xl shadow-lg w-96">
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center justify-center">
               Admin Login <FaUser className="ml-2" />
             </h2>
@@ -130,13 +130,13 @@ function AdminDashboard() {
             </div>
             <div className="flex justify-between items-center">
               <button
-                className="text-white px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                className="text-white px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-500"
                 onClick={() => setShowModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="text-white px-4 py-2 bg-blue-500 rounded-md hover:bg-blue-600"
+                className="text-white px-4 py-2 bg-purple-500 rounded-md hover:bg-purple-600"
                 onClick={() =>
                   handleAdminLogin(
                     document.getElementById("username").value,
