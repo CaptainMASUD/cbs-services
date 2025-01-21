@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
-import SignatureCanvas from "react-signature-canvas";
-import { FaUser, FaFileAlt, FaCalendarAlt, FaClock, FaSignature, FaComments } from "react-icons/fa";
-import SuccessMessage from "./components/SuccessMessage";
+import React, { useState, useRef, useEffect } from "react"
+import { motion } from "framer-motion"
+import SignatureCanvas from "react-signature-canvas"
+import { FaUser, FaFileAlt, FaCalendarAlt, FaClock, FaSignature, FaComments } from "react-icons/fa"
+import SuccessMessage from "./components/SuccessMessage"
 
 const LoanVerificationForm = () => {
   const [formData, setFormData] = useState({
@@ -12,60 +12,46 @@ const LoanVerificationForm = () => {
     visitDate: "",
     visitTime: "",
     remarks: "",
-  });
-  const [showPreview, setShowPreview] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  })
+  const [showPreview, setShowPreview] = useState(false)
+  const [formSubmitted, setFormSubmitted] = useState(false)
 
-  const [canvasWidth, setCanvasWidth] = useState(0); // Dynamic canvas width
+  const [canvasWidth, setCanvasWidth] = useState(0) // Dynamic canvas width
 
   // Refs for signature canvases
-  const applicantSignatureRef = useRef();
-  const guarantor1SignatureRef = useRef();
-  const guarantor2SignatureRef = useRef();
-  const canvasContainerRef = useRef(); // Reference for the container to get its width
+  const applicantSignatureRef = useRef()
+  const guarantor1SignatureRef = useRef()
+  const guarantor2SignatureRef = useRef()
+  const canvasContainerRef = useRef() // Reference for the container to get its width
 
   useEffect(() => {
     // Set canvas width dynamically based on container width
     const resizeCanvas = () => {
       if (canvasContainerRef.current) {
-        setCanvasWidth(canvasContainerRef.current.offsetWidth);
+        setCanvasWidth(canvasContainerRef.current.offsetWidth)
       }
-    };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    }
+    resizeCanvas()
+    window.addEventListener("resize", resizeCanvas)
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  }, []);
+      window.removeEventListener("resize", resizeCanvas)
+    }
+  }, [])
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
 
-  const handleNext = () => setShowPreview(true);
-  const handleEdit = () => setShowPreview(false);
-  const handleConfirm = () => {
-    if (formData.fileNumber) {
-      const formKey = formData.fileNumber;
-      const savedData = {
-        ...formData,
-        applicantSignature: getSignatureImage(applicantSignatureRef),
-        guarantor1Signature: getSignatureImage(guarantor1SignatureRef),
-        guarantor2Signature: getSignatureImage(guarantor2SignatureRef),
-      };
-      localStorage.setItem(formKey, JSON.stringify(savedData));
-      setFormSubmitted(true);
-    } else {
-      alert("Please provide a valid File Number before confirming.");
-    }
-  };
+  const handleNext = () => setShowPreview(true)
+  const handleEdit = () => setShowPreview(false)
+  const handleConfirm = () => setFormSubmitted(true)
 
   const clearSignature = (signatureRef) => {
-    signatureRef.current.clear();
-  };
+    signatureRef.current.clear()
+  }
 
-  const getSignatureImage = (signatureRef) => (signatureRef.current.isEmpty() ? null : signatureRef.current.toDataURL());
+  const getSignatureImage = (signatureRef) => (signatureRef.current.isEmpty() ? null : signatureRef.current.toDataURL())
 
   const handleAddMore = () => {
     setFormData({
@@ -75,13 +61,13 @@ const LoanVerificationForm = () => {
       visitDate: "",
       visitTime: "",
       remarks: "",
-    });
-    applicantSignatureRef.current.clear();
-    guarantor1SignatureRef.current.clear();
-    guarantor2SignatureRef.current.clear();
-    setFormSubmitted(false);
-    setShowPreview(false);
-  };
+    })
+    applicantSignatureRef.current.clear()
+    guarantor1SignatureRef.current.clear()
+    guarantor2SignatureRef.current.clear()
+    setFormSubmitted(false)
+    setShowPreview(false)
+  }
 
   return (
     <div className="p-6 bg-gradient-to-b from-purple-50 to-purple-100 min-h-screen">
@@ -190,8 +176,8 @@ const LoanVerificationForm = () => {
                             index === 0
                               ? applicantSignatureRef
                               : index === 1
-                              ? guarantor1SignatureRef
-                              : guarantor2SignatureRef
+                                ? guarantor1SignatureRef
+                                : guarantor2SignatureRef
                           }
                           penColor="black"
                           canvasProps={{
@@ -208,8 +194,8 @@ const LoanVerificationForm = () => {
                               index === 0
                                 ? applicantSignatureRef
                                 : index === 1
-                                ? guarantor1SignatureRef
-                                : guarantor2SignatureRef
+                                  ? guarantor1SignatureRef
+                                  : guarantor2SignatureRef,
                             )
                           }
                           className="mt-2 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition duration-300 ease-in-out"
@@ -331,7 +317,8 @@ const LoanVerificationForm = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LoanVerificationForm;
+export default LoanVerificationForm
+

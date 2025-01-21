@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import {
   BarChart,
   Bar,
@@ -12,7 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts"
-import { FaExclamationTriangle } from "react-icons/fa"
+import { FaExclamationTriangle, FaChevronDown, FaSearch } from "react-icons/fa"
 
 const employeeData = [
   {
@@ -85,95 +85,183 @@ const employeeData = [
 function EmployeeAnalysis() {
   const [timeFrame, setTimeFrame] = useState("monthly")
   const [selectedEmployee, setSelectedEmployee] = useState(null)
+  const [searchTerm, setSearchTerm] = useState("")
 
-  const chartData = employeeData.map((employee) => ({
-    name: employee.name,
-    loans: employee[timeFrame].loans,
-    amount: employee[timeFrame].amount,
-    performance: employee.performance,
-  }))
+  const chartData = employeeData
+    .filter((employee) => employee.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    .map((employee) => ({
+      name: employee.name,
+      loans: employee[timeFrame].loans,
+      amount: employee[timeFrame].amount,
+      performance: employee.performance,
+    }))
+
+  const performanceColors = {
+    poor: "bg-red-100 text-red-800",
+    average: "bg-yellow-100 text-yellow-800",
+    good: "bg-green-100 text-green-800",
+    excellent: "bg-blue-100 text-blue-800",
+  }
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold mb-6">Employee Analysis</h2>
-      <motion.div
-        className="bg-white rounded-lg shadow-md p-6"
-        initial={{ opacity: 0, y: 20 }}
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <motion.h2
+        className="text-4xl font-bold mb-8 text-gray-800"
+        initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold">Employee Performance</h3>
-          <select value={timeFrame} onChange={(e) => setTimeFrame(e.target.value)} className="border rounded p-2">
-            <option value="weekly">Weekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="annual">Annual</option>
-          </select>
+        Employee Analysis
+      </motion.h2>
+      <motion.div
+        className="bg-white rounded-xl shadow-lg p-6 mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+          <h3 className="text-2xl font-semibold text-gray-700 mb-4 md:mb-0">Employee Performance</h3>
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <select
+                value={timeFrame}
+                onChange={(e) => setTimeFrame(e.target.value)}
+                className="appearance-none bg-gray-100 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              >
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="annual">Annual</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <FaChevronDown className="fill-current h-4 w-4" />
+              </div>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search employees..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="bg-gray-100 border border-gray-300 text-gray-700 py-2 px-4 pl-10 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              />
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaSearch className="text-gray-400" />
+              </div>
+            </div>
+          </div>
         </div>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+            <XAxis dataKey="name" stroke="#718096" />
             <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
             <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
-            <Tooltip />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "rgba(255, 255, 255, 0.8)",
+                border: "none",
+                borderRadius: "8px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              }}
+            />
             <Legend />
-            <Bar yAxisId="left" dataKey="loans" fill="#8884d8" name="Number of Loans" />
-            <Bar yAxisId="right" dataKey="amount" fill="#82ca9d" name="Loan Amount ($)" />
+            <Bar yAxisId="left" dataKey="loans" fill="#8884d8" name="Number of Loans" radius={[4, 4, 0, 0]} />
+            <Bar yAxisId="right" dataKey="amount" fill="#82ca9d" name="Loan Amount ($)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
-        <div className="mt-6">
-          <h4 className="text-lg font-semibold mb-2">Employee Performance Summary</h4>
-          <ul className="space-y-2">
-            {employeeData.map((employee, index) => (
-              <li key={index} className="flex items-center justify-between">
-                <button onClick={() => setSelectedEmployee(employee)} className="text-blue-500 hover:underline">
+      </motion.div>
+      <motion.div
+        className="bg-white rounded-xl shadow-lg p-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+      >
+        <h4 className="text-xl font-semibold mb-4 text-gray-700">Employee Performance Summary</h4>
+        <ul className="space-y-3">
+          <AnimatePresence>
+            {chartData.map((employee, index) => (
+              <motion.li
+                key={employee.name}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+              >
+                <button
+                  onClick={() => setSelectedEmployee(employeeData.find((e) => e.name === employee.name))}
+                  className="text-blue-600 hover:text-blue-800 font-medium focus:outline-none"
+                >
                   {employee.name}
                 </button>
                 <span
-                  className={`flex items-center ${
-                    employee.performance === "poor"
-                      ? "text-red-500"
-                      : employee.performance === "excellent"
-                        ? "text-green-500"
-                        : "text-yellow-500"
+                  className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                    performanceColors[employee.performance]
                   }`}
                 >
                   {employee.performance}
                   {employee.performance === "poor" && (
-                    <FaExclamationTriangle className="ml-2" title="Requires attention" />
+                    <FaExclamationTriangle className="inline-block ml-2" title="Requires attention" />
                   )}
                 </span>
-              </li>
+              </motion.li>
             ))}
-          </ul>
-        </div>
+          </AnimatePresence>
+        </ul>
+      </motion.div>
+      <AnimatePresence>
         {selectedEmployee && (
           <motion.div
-            className="mt-8"
+            key={selectedEmployee.name}
+            className="mt-8 bg-white rounded-xl shadow-lg p-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
           >
-            <h4 className="text-lg font-semibold mb-4">{selectedEmployee.name}'s Annual Performance</h4>
+            <h4 className="text-xl font-semibold mb-4 text-gray-700">{selectedEmployee.name}'s Annual Performance</h4>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={selectedEmployee.yearlyPerformance}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="year" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                <XAxis dataKey="year" stroke="#718096" />
                 <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
                 <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
-                <Tooltip />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
+                    border: "none",
+                    borderRadius: "8px",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                  }}
+                />
                 <Legend />
-                <Line yAxisId="left" type="monotone" dataKey="loans" stroke="#8884d8" name="Number of Loans" />
-                <Line yAxisId="right" type="monotone" dataKey="amount" stroke="#82ca9d" name="Loan Amount ($)" />
+                <Line
+                  yAxisId="left"
+                  type="monotone"
+                  dataKey="loans"
+                  stroke="#8884d8"
+                  name="Number of Loans"
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                  activeDot={{ r: 8 }}
+                />
+                <Line
+                  yAxisId="right"
+                  type="monotone"
+                  dataKey="amount"
+                  stroke="#82ca9d"
+                  name="Loan Amount ($)"
+                  strokeWidth={2}
+                  dot={{ r: 4 }}
+                  activeDot={{ r: 8 }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </motion.div>
         )}
-      </motion.div>
+      </AnimatePresence>
     </div>
   )
 }
 
 export default EmployeeAnalysis
-

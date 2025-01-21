@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 
 const LoginPage = () => {
@@ -6,11 +7,44 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [userRole, setUserRole] = useState(''); // For role management
+  const navigate = useNavigate();
+
+  // Predefined credentials for admin and employee
+  const credentials = {
+    admin: { email: 'admin@example.com', password: '123' },
+    employee: { email: 'employee@example.com', password: '123' },
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login/signup logic here
-    console.log(isLogin ? 'Login' : 'Signup', { email, password, name });
+
+    if (isLogin) {
+      let role = '';
+      // Check credentials
+      if (email === credentials.admin.email && password === credentials.admin.password) {
+        role = 'manager';
+      } else if (email === credentials.employee.email && password === credentials.employee.password) {
+        role = 'employee';
+      } else {
+        alert('Invalid email or password');
+        return;
+      }
+
+      setUserRole(role);
+      setShowModal(true); // Show the modal on successful login
+
+      // Navigate based on the role
+      setTimeout(() => {
+        setShowModal(false);
+        navigate(role === 'manager' ? '/admin' : '/form');
+      }, 2000); // 2-second delay for the modal
+    } else {
+      console.log('Signup', { email, password, name });
+      alert('Signup successful. Please log in.');
+      setIsLogin(true);
+    }
   };
 
   return (
@@ -107,14 +141,6 @@ const LoginPage = () => {
                 Remember me
               </label>
             </div>
-
-            {isLogin && (
-              <div className="text-sm">
-                <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                  Forgot your password?
-                </a>
-              </div>
-            )}
           </div>
 
           <div>
@@ -135,6 +161,47 @@ const LoginPage = () => {
           </button>
         </div>
       </div>
+
+      {showModal && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 transition-opacity">
+    <div className="bg-white rounded-lg shadow-lg p-6 w-96 relative overflow-hidden transform scale-95 transition-all duration-300">
+      {/* Modal Header */}
+      <div className="flex items-center justify-center">
+        <div className="bg-blue-100 text-blue-500 rounded-full p-3">
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      {/* Modal Content */}
+      <div className="text-center mt-4">
+        <h3 className="text-xl font-semibold text-gray-800">
+          Login Successful
+        </h3>
+        <p className="text-sm text-gray-600 mt-2">
+          Welcome back, {userRole === 'manager' ? 'Manager' : 'Employee'}! You
+          will be redirected shortly.
+        </p>
+      </div>
+
+      {/* Animated Background Accent */}
+      <div className="absolute inset-0 opacity-20 blur-lg bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg"></div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
