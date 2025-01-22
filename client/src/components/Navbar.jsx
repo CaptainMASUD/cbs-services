@@ -33,7 +33,7 @@ const Navbar = () => {
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
             <div className="flex space-x-4">
-              <NavItem icon={<FaClipboardList className="w-5 h-5" />} text="Form" to="/form" />
+              <NavItem icon={<FaClipboardList className="w-5 h-5" />} text="Employee Dashboard" to="/form" />
               <NavItem icon={<FaUserShield className="w-5 h-5" />} text="Admin Dashboard" to="/admin" />
               <NavItem icon={<FaUserTie className="w-5 h-5" />} text="Manager Dashboard" to="/manager" />
               <NavItem icon={<FaSignInAlt className="w-5 h-5" />} text="Login" to="/login" />
@@ -52,7 +52,7 @@ const Navbar = () => {
       </div>
       <div className={`${isOpen ? "block" : "hidden"} sm:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <NavItem icon={<FaClipboardList className="w-5 h-5" />} text="Form" to="/form" />
+          <NavItem icon={<FaClipboardList className="w-5 h-5" />} text="Employee Dashboard" to="/form" />
           <NavItem icon={<FaUserShield className="w-5 h-5" />} text="Admin Dashboard" to="/admin" />
           <NavItem icon={<FaUserTie className="w-5 h-5" />} text="Manager Dashboard" to="/manager" />
           <NavItem icon={<FaSignInAlt className="w-5 h-5" />} text="Login" to="/login" />
