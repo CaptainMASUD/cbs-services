@@ -28,6 +28,23 @@ function Page1({ onNext, updateFormData, formData }) {
     <form onSubmit={handleSubmit} className="space-y-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <h1 className="text-3xl font-bold mb-6 text-green-700">Loan Application Form - Page 1</h1>
 
+      {/* Employee ID Input */}
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="employeeId">
+          Employee ID:
+        </label>
+        <input
+          type="text"
+          name="employeeId"
+          id="employeeId"
+          value={formData.employeeId || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          required
+        />
+      </div>
+
+      {/* Bank Type */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="bankType">
           Bank Type:
@@ -68,6 +85,7 @@ function Page1({ onNext, updateFormData, formData }) {
         </div>
       )}
 
+      {/* Loan Type */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2">Loan Type:</label>
         <div className="flex space-x-4">
@@ -100,6 +118,7 @@ function Page1({ onNext, updateFormData, formData }) {
         </div>
       </div>
 
+      {/* File Number */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="fileNumber">
           File Number:
@@ -115,6 +134,7 @@ function Page1({ onNext, updateFormData, formData }) {
         />
       </div>
 
+      {/* Client Name */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="clientName">
           Client Name:
@@ -130,6 +150,7 @@ function Page1({ onNext, updateFormData, formData }) {
         />
       </div>
 
+      {/* Visit Date */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="visitDate">
           Visit Date:
@@ -145,6 +166,7 @@ function Page1({ onNext, updateFormData, formData }) {
         />
       </div>
 
+      {/* Visit Time */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="visitTime">
           Visit Time:
@@ -160,21 +182,25 @@ function Page1({ onNext, updateFormData, formData }) {
         />
       </div>
 
+      {/* Signature 1 */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2">Signature 1:</label>
         <SignatureField onSave={(data) => handleSignatureSave("signature1", data)} />
       </div>
 
+      {/* Signature 2 */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2">Signature 2:</label>
         <SignatureField onSave={(data) => handleSignatureSave("signature2", data)} />
       </div>
 
+      {/* Signature 3 */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2">Signature 3:</label>
         <SignatureField onSave={(data) => handleSignatureSave("signature3", data)} />
       </div>
 
+      {/* Remarks */}
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="remarks">
           Remarks:
@@ -189,6 +215,7 @@ function Page1({ onNext, updateFormData, formData }) {
         ></textarea>
       </div>
 
+      {/* Submit Button */}
       <div className="flex items-center justify-between">
         <button
           type="submit"

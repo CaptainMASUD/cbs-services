@@ -41,7 +41,7 @@ const LoginPage = () => {
       setTimeout(() => {
         setShowModal(false);
         if (role === 'admin') navigate('/admin');
-        else if (role === 'manager') navigate('/manager-dashboard');
+        else if (role === 'manager') navigate('/manager');
         else navigate('/form');
       }, 2000);
     } else {
