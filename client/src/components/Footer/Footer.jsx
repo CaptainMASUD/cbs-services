@@ -11,7 +11,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <SiOnlyoffice className="text-3xl mr-2 text-green-500" />
-              <span className="text-xl font-bold">CBS Services</span>
+              <span className="text-xl font-bold">Salebird Limited</span>
             </div>
             <p className="text-sm mb-4">Providing professional services since 2023</p>
             <div className="flex space-x-4">

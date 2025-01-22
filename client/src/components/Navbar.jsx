@@ -28,7 +28,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <NavLink to="/" className="flex-shrink-0 flex items-center">
               <SiApacheopenoffice className="h-8 w-auto text-green-400" />
-              <span className="ml-2 text-white text-lg font-bold">CBS Services</span>
+              <span className="ml-2 text-white text-lg font-bold">Salebird Limited</span>
             </NavLink>
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center">
