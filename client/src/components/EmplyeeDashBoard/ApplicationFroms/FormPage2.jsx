@@ -1,41 +1,159 @@
-import React from 'react'
+import React from "react";
 
-function FormPage2() {
-    return (
-      <div className="mt-6 p-6 bg-gray-50 shadow-lg rounded-lg">
-        <h2 className="text-xl font-bold mb-4">Form Page 2</h2>
-        <form className="space-y-4">
+const Page2 = ({ data }) => {
+  return (
+    <div>
+      <h3 className="text-xl font-bold mb-4">Page 2: Business Details</h3>
+      <form>
+        <div className="grid grid-cols-2 gap-4">
+          {/* Organization Information */}
           <div>
-            <label className="block text-sm font-medium mb-2">Name of Organization</label>
+            <label className="block font-medium">Organization Name:</label>
             <input
               type="text"
-              placeholder="Enter organization name"
-              className="w-full p-2 border border-gray-300 rounded"
-              defaultValue="Tech Solutions Inc."
+              value={data.organizationName}
+              readOnly
+              className="border rounded w-full p-2"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Office Address</label>
+            <label className="block font-medium">Office Address:</label>
             <input
               type="text"
-              placeholder="Enter office address"
-              className="w-full p-2 border border-gray-300 rounded"
-              defaultValue="1234 Main Street"
+              value={data.officeAddress}
+              readOnly
+              className="border rounded w-full p-2"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-2">Person Contacted</label>
+            <label className="block font-medium">Person Contacted:</label>
             <input
               type="text"
-              placeholder="Enter contact person"
-              className="w-full p-2 border border-gray-300 rounded"
-              defaultValue="Jane Doe"
+              value={data.personContacted}
+              readOnly
+              className="border rounded w-full p-2"
             />
           </div>
-          {/* Add additional fields as needed */}
-        </form>
-      </div>
-    );
-  }
+          <div>
+            <label className="block font-medium">Designation:</label>
+            <input
+              type="text"
+              value={data.designation}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Contact No:</label>
+            <input
+              type="text"
+              value={data.contactNo}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Contact Time:</label>
+            <input
+              type="text"
+              value={data.contactTime}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          {/* Business Information */}
+          <div>
+            <label className="block font-medium">Name of Business:</label>
+            <input
+              type="text"
+              value={data.businessName}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Type of Company:</label>
+            <input
+              type="text"
+              value={data.companyType}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Total No. of Employees:</label>
+            <input
+              type="number"
+              value={data.totalEmployees}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Years in Business:</label>
+            <input
+              type="number"
+              value={data.yearsInBusiness}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Nature of Premise Ownership:</label>
+            <input
+              type="text"
+              value={data.premiseOwnership}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Nature of Business:</label>
+            <input
+              type="text"
+              value={data.businessNature}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Office Setup Info:</label>
+            <textarea
+              value={data.officeSetupInfo}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Key Landmarks:</label>
+            <textarea
+              value={data.keyLandmarks}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Adverse Observations:</label>
+            <textarea
+              value={data.adverseObservations}
+              readOnly
+              className="border rounded w-full p-2"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Inventory Match:</label>
+            <input
+              type="checkbox"
+              checked={data.inventoryMatch}
+              readOnly
+              className="mr-2"
+            />
+            <span>Yes</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
 
-export default FormPage2
+export default Page2;

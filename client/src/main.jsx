@@ -34,6 +34,7 @@ const router = createBrowserRouter([
       { path: 'terms-of-services', element: <TermsOfService /> },
       { path: 'forms', element: <EmplyeeDashboard /> },
 
+
     ],
   },
 ]);

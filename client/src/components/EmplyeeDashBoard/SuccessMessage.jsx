@@ -1,13 +1,15 @@
 import React from "react";
 import { FaCheckCircle, FaPlus, FaTachometerAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function SuccessMessage() {
+    const navigate = useNavigate()
   const handleAddAnotherForm = () => {
     window.location.reload(); // Reload the page
   };
 
   const handleGoToDashboard = () => {
-    window.location.href = "/dashboard"; // Navigate to dashboard
+   navigate("/form"); // Navigate to dashboard
   };
 
   return (

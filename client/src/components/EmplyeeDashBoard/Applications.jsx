@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { IoFolderOpen } from "react-icons/io5";
+import { IoFolderOpen, IoAdd } from "react-icons/io5"; // Import the "Add" icon
+import { useNavigate } from "react-router-dom"; // Replace useHistory with useNavigate
 import Page1 from "./ApplicationFroms/FormPage1";
 import Page2 from "./ApplicationFroms/FormPage2";
 import Page3 from "./ApplicationFroms/FormPage3";
@@ -7,6 +8,7 @@ import Page3 from "./ApplicationFroms/FormPage3";
 function Applications() {
   const [selectedApplication, setSelectedApplication] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate(); // Use useNavigate instead of useHistory
 
   const applications = [
     { id: 1, name: "John Doe", status: "Pending", date: "2023-05-15" },
@@ -82,40 +84,56 @@ function Applications() {
     }
   };
 
+  const handleAddFormClick = () => {
+    navigate("/forms"); // Use navigate instead of history.push
+  };
+
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Applications</h2>
+        <button
+          onClick={handleAddFormClick}
+          className="bg-green-600 text-white py-2 px-4 rounded flex items-center hover:bg-green-700"
+        >
+          <IoAdd size={20} className="mr-2" />
+          Add Form
+        </button>
       </div>
-      <table className="w-full bg-white shadow-md rounded-lg overflow-hidden">
-        <thead className="bg-green-600 text-white">
-          <tr>
-            <th className="py-2 px-4 text-left">ID</th>
-            <th className="py-2 px-4 text-left">Name</th>
-            <th className="py-2 px-4 text-left">Status</th>
-            <th className="py-2 px-4 text-left">Date</th>
-            <th className="py-2 px-4 text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {applications.map((app) => (
-            <tr key={app.id} className="border-b">
-              <td className="py-2 px-4">{app.id}</td>
-              <td className="py-2 px-4">{app.name}</td>
-              <td className="py-2 px-4">{app.status}</td>
-              <td className="py-2 px-4">{app.date}</td>
-              <td className="py-2 px-4">
-                <button
-                  onClick={() => handleRowClick(app.id)}
-                  className="text-green-600 hover:text-green-800"
-                >
-                  <IoFolderOpen size={24} />
-                </button>
-              </td>
+
+      {/* Table with overflow scroll for responsiveness */}
+      <div className="overflow-x-auto">
+        <table className="w-full bg-white shadow-md rounded-lg overflow-hidden">
+          <thead className="bg-green-600 text-white">
+            <tr>
+              <th className="py-2 px-4 text-left">ID</th>
+              <th className="py-2 px-4 text-left">Name</th>
+              <th className="py-2 px-4 text-left">Status</th>
+              <th className="py-2 px-4 text-left">Date</th>
+              <th className="py-2 px-4 text-left">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {applications.map((app) => (
+              <tr key={app.id} className="border-b">
+                <td className="py-2 px-4">{app.id}</td>
+                <td className="py-2 px-4">{app.name}</td>
+                <td className="py-2 px-4">{app.status}</td>
+                <td className="py-2 px-4">{app.date}</td>
+                <td className="py-2 px-4">
+                  <button
+                    onClick={() => handleRowClick(app.id)}
+                    className="text-green-600 hover:text-green-800"
+                  >
+                    <IoFolderOpen size={24} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {selectedApplication && (
         <div className="mt-6 bg-white p-6 rounded shadow-md">
           {renderPage()}

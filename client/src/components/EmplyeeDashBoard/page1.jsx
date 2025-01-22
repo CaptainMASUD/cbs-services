@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import { FaCarAlt, FaHome } from "react-icons/fa"
 import SignatureField from "./SignatureField"
 
 function Page1({ onNext, updateFormData, formData }) {
+  const [otherBank, setOtherBank] = useState(false)
+
   const handleSubmit = (e) => {
     e.preventDefault()
     onNext()
@@ -10,6 +12,12 @@ function Page1({ onNext, updateFormData, formData }) {
 
   const handleInputChange = (e) => {
     updateFormData({ [e.target.name]: e.target.value })
+  }
+
+  const handleBankTypeChange = (e) => {
+    const selectedBank = e.target.value
+    updateFormData({ bankType: selectedBank })
+    setOtherBank(selectedBank === "Other")
   }
 
   const handleSignatureSave = (field, data) => {
@@ -24,16 +32,41 @@ function Page1({ onNext, updateFormData, formData }) {
         <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="bankType">
           Bank Type:
         </label>
-        <input
-          type="text"
+        <select
           name="bankType"
           id="bankType"
           value={formData.bankType || ""}
-          onChange={handleInputChange}
+          onChange={handleBankTypeChange}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
           required
-        />
+        >
+          <option value="" disabled>Select Bank Type</option>
+          <option value="One Bank">One Bank</option>
+          <option value="Bank of America">Bank of America</option>
+          <option value="Chase">Chase</option>
+          <option value="Wells Fargo">Wells Fargo</option>
+          <option value="Citibank">Citibank</option>
+          <option value="Other">Other</option>
+        </select>
       </div>
+
+      {otherBank && (
+        <div>
+          <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="otherBank">
+            Please Specify Bank Name:
+          </label>
+          <input
+            type="text"
+            name="otherBank"
+            id="otherBank"
+            value={formData.otherBank || ""}
+            onChange={handleInputChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+            placeholder="Enter Bank Name"
+            required
+          />
+        </div>
+      )}
 
       <div>
         <label className="block text-green-700 text-sm font-bold mb-2">Loan Type:</label>
@@ -169,4 +202,3 @@ function Page1({ onNext, updateFormData, formData }) {
 }
 
 export default Page1
-
