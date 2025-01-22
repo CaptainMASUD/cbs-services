@@ -14,6 +14,7 @@ import SuccessMessage from './components/SuccessMessage';
 import ManagerDashboard from './components/Manager/ManagerDashboard';
 import PrivacyPolicy from './components/Privacy and Policy/PrivacyProlicy';
 import TermsOfService from './components/TermsOfService/TermsOfService';
+import EmplyeeDashboard from './components/EmplyeeDashBoard/EmplyeeDashboard';
 
 
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: 'manager', element: <ManagerDashboard /> },
       { path: 'privacy-policy', element: <PrivacyPolicy /> },
       { path: 'terms-of-services', element: <TermsOfService /> },
+      { path: 'forms', element: <EmplyeeDashboard /> },
 
     ],
   },

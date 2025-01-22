@@ -1,0 +1,172 @@
+import React from "react"
+import { FaCarAlt, FaHome } from "react-icons/fa"
+import SignatureField from "./SignatureField"
+
+function Page1({ onNext, updateFormData, formData }) {
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onNext()
+  }
+
+  const handleInputChange = (e) => {
+    updateFormData({ [e.target.name]: e.target.value })
+  }
+
+  const handleSignatureSave = (field, data) => {
+    updateFormData({ [field]: data })
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 className="text-3xl font-bold mb-6 text-green-700">Loan Application Form - Page 1</h1>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="bankType">
+          Bank Type:
+        </label>
+        <input
+          type="text"
+          name="bankType"
+          id="bankType"
+          value={formData.bankType || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2">Loan Type:</label>
+        <div className="flex space-x-4">
+          <label className="inline-flex items-center">
+            <input
+              type="radio"
+              name="loanType"
+              value="car"
+              checked={formData.loanType === "car"}
+              onChange={handleInputChange}
+              className="form-radio text-green-500"
+            />
+            <span className="ml-2">
+              <FaCarAlt className="inline mr-1" /> Car
+            </span>
+          </label>
+          <label className="inline-flex items-center">
+            <input
+              type="radio"
+              name="loanType"
+              value="house"
+              checked={formData.loanType === "house"}
+              onChange={handleInputChange}
+              className="form-radio text-green-500"
+            />
+            <span className="ml-2">
+              <FaHome className="inline mr-1" /> House
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="fileNumber">
+          File Number:
+        </label>
+        <input
+          type="text"
+          name="fileNumber"
+          id="fileNumber"
+          value={formData.fileNumber || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="clientName">
+          Client Name:
+        </label>
+        <input
+          type="text"
+          name="clientName"
+          id="clientName"
+          value={formData.clientName || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="visitDate">
+          Visit Date:
+        </label>
+        <input
+          type="date"
+          name="visitDate"
+          id="visitDate"
+          value={formData.visitDate || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="visitTime">
+          Visit Time:
+        </label>
+        <input
+          type="time"
+          name="visitTime"
+          id="visitTime"
+          value={formData.visitTime || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          required
+        />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2">Signature 1:</label>
+        <SignatureField onSave={(data) => handleSignatureSave("signature1", data)} />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2">Signature 2:</label>
+        <SignatureField onSave={(data) => handleSignatureSave("signature2", data)} />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2">Signature 3:</label>
+        <SignatureField onSave={(data) => handleSignatureSave("signature3", data)} />
+      </div>
+
+      <div>
+        <label className="block text-green-700 text-sm font-bold mb-2" htmlFor="remarks">
+          Remarks:
+        </label>
+        <textarea
+          name="remarks"
+          id="remarks"
+          value={formData.remarks || ""}
+          onChange={handleInputChange}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-green-500"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <button
+          type="submit"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          Next
+        </button>
+      </div>
+    </form>
+  )
+}
+
+export default Page1
+
