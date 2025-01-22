@@ -77,7 +77,7 @@ const LoanVerificationForm = () => {
         ) : (
           <>
             <div className="text-center mb-6">
-              <h1 className="text-2xl font-bold text-green-700 uppercase mb-2">CBS Services</h1>
+              <h1 className="text-2xl font-bold text-green-700 uppercase mb-2">Salebird Limited</h1>
               <p className="text-gray-600 font-medium">Sign and Photo Verification Form</p>
             </div>
 
